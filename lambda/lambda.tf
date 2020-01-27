@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "monitor" {
   function_name    = var.name
   handler          = format("%s.%s", var.name, "exec")
-  role             = var.role_arn
+  role             = aws_iam_role.lambda.arn
   runtime          = "ruby2.5"
   filename         = data.archive_file.function.output_path
   source_code_hash = data.archive_file.function.output_base64sha256
