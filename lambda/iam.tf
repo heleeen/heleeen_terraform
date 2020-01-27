@@ -1,5 +1,3 @@
-variable "name" {}
-
 resource "aws_iam_role" "lambda" {
   name = format("%s_%s", var.name, "role")
 
