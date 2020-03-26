@@ -1,4 +1,4 @@
-resource "aws_lambda_function" "monitor" {
+resource "aws_lambda_function" "this" {
   function_name    = var.name
   handler          = format("%s.%s", var.name, "exec")
   role             = aws_iam_role.lambda.arn
