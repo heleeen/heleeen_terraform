@@ -6,8 +6,12 @@ resource "aws_lambda_function" "this" {
   filename         = data.archive_file.function.output_path
   source_code_hash = data.archive_file.function.output_base64sha256
 
-  environment {
-    variables = var.environments
+  dynamic "environment" {
+    for_each = var.environments
+
+    content {
+      variables = var.environments
+    }
   }
 }
 

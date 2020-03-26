@@ -1,3 +1,5 @@
 variable "name" {}
 
-variable "environments" {}
+variable "environments" {
+  default = {}
+}
