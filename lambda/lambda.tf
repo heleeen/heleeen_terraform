@@ -3,15 +3,12 @@ resource "aws_lambda_function" "this" {
   handler          = format("%s.%s", var.name, "exec")
   role             = aws_iam_role.lambda.arn
   runtime          = "ruby2.5"
+  timeout = var.timeout
   filename         = data.archive_file.function.output_path
   source_code_hash = data.archive_file.function.output_base64sha256
 
-  dynamic "environment" {
-    for_each = var.environments
-
-    content {
-      variables = var.environments
-    }
+  environment {
+    variables = var.environments
   }
 }
 
