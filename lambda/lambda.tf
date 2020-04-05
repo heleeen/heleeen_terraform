@@ -7,8 +7,12 @@ resource "aws_lambda_function" "this" {
   filename         = data.archive_file.function.output_path
   source_code_hash = data.archive_file.function.output_base64sha256
 
-  environment {
-    variables = var.environments
+  dynamic "environment" {
+    for_each = var.environments == {} ? {} : var.environments
+
+    content {
+      variables = var.environments
+    }
   }
 }
 
@@ -17,5 +21,3 @@ data "archive_file" "function" {
   source_dir  = "function"
   output_path = "script.zip"
 }
-
-# TODO log group
